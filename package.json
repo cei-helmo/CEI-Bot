@@ -1,0 +1,26 @@
+{
+  "name": "cei-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+"scripts": {
+  "start": "node ./dist/main.js",
+  "dev:compile": "tsc",
+  "dev:start": "npx tsc && node ./dist/main.js",
+  "dev:watch": "nodemon --ext ts --exec \"npx tsc && node ./dist/main.js\""
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
