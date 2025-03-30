@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import { pingCommand } from './commands/ping'; 
 import { infoComite } from './commands/infos-comite';
 import { pollCommand } from './commands/poll';
+import { socialCommand } from './commands/social';
+import { listCommand } from './commands/list';
 
 dotenv.config();
 
@@ -16,7 +18,9 @@ export async function registerCommands() {
     const commands = [
         pingCommand.toJSON(),
         infoComite.toJSON(),
-        pollCommand.toJSON()
+        pollCommand.toJSON(),
+        socialCommand.toJSON(),
+        listCommand.toJSON()
     ];
 
     try {

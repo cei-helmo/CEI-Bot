@@ -5,6 +5,8 @@ import { executePingCommand } from './commands/ping';
 import { executeInfoComiteCommand } from './commands/infos-comite';  
 import { handleReady } from './event/ready';
 import { executePollCommand } from './commands/poll';
+import { executeSocialCommand } from './commands/social';
+import { executeListCommand } from './commands/list';
 
 dotenv.config();
 
@@ -32,6 +34,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
             break;
         case 'poll':
             await executePollCommand(interaction);
+        case 'social':
+            await executeSocialCommand(interaction);
+        case 'list':
+            await executeListCommand(interaction)
             break;
     }
 });

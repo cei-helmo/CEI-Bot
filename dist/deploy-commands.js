@@ -18,6 +18,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const ping_1 = require("./commands/ping");
 const infos_comite_1 = require("./commands/infos-comite");
 const poll_1 = require("./commands/poll");
+const social_1 = require("./commands/social");
+const list_1 = require("./commands/list");
 dotenv_1.default.config();
 const clientId = process.env.CLIENT_ID;
 const token = process.env.TOKEN;
@@ -28,7 +30,9 @@ function registerCommands() {
         const commands = [
             ping_1.pingCommand.toJSON(),
             infos_comite_1.infoComite.toJSON(),
-            poll_1.pollCommand.toJSON()
+            poll_1.pollCommand.toJSON(),
+            social_1.socialCommand.toJSON(),
+            list_1.listCommand.toJSON()
         ];
         try {
             console.log('Démarrage de l\'enregistrement des commandes slash...');

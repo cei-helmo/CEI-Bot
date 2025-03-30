@@ -19,6 +19,8 @@ const ping_1 = require("./commands/ping");
 const infos_comite_1 = require("./commands/infos-comite");
 const ready_1 = require("./event/ready");
 const poll_1 = require("./commands/poll");
+const social_1 = require("./commands/social");
+const list_1 = require("./commands/list");
 dotenv_1.default.config();
 const client = new discord_js_1.Client({ intents: [discord_js_1.GatewayIntentBits.Guilds] });
 const token = process.env.TOKEN;
@@ -39,6 +41,10 @@ client.on(discord_js_1.Events.InteractionCreate, (interaction) => __awaiter(void
             break;
         case 'poll':
             yield (0, poll_1.executePollCommand)(interaction);
+        case 'social':
+            yield (0, social_1.executeSocialCommand)(interaction);
+        case 'list':
+            yield (0, list_1.executeListCommand)(interaction);
             break;
     }
 }));
