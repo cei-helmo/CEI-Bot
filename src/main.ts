@@ -4,6 +4,7 @@ import { registerCommands } from './deploy-commands';
 import { executePingCommand } from './commands/ping';  
 import { executeInfoComiteCommand } from './commands/infos-comite';  
 import { handleReady } from './event/ready';
+import { executePollCommand } from './commands/poll';
 
 dotenv.config();
 
@@ -20,11 +21,19 @@ client.once(Events.ClientReady, () => {
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
-    if (!interaction.isCommand()) return;
-
-    await executePingCommand(interaction);
-    await executeInfoComiteCommand(interaction)
-    //ajoute d'autre commandes ici
+    if (!interaction.isChatInputCommand()) return;
+    
+    switch (interaction.commandName) {
+        case 'ping':
+            await executePingCommand(interaction);
+            break;
+        case 'infos-comite':
+            await executeInfoComiteCommand(interaction);
+            break;
+        case 'poll':
+            await executePollCommand(interaction);
+            break;
+    }
 });
 
 client.login(token);

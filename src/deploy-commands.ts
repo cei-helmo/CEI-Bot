@@ -2,6 +2,7 @@ import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 import { pingCommand } from './commands/ping'; 
 import { infoComite } from './commands/infos-comite';
+import { pollCommand } from './commands/poll';
 
 dotenv.config();
 
@@ -11,20 +12,16 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 // Enregistrer les commandes slash
 export async function registerCommands() {
+   
     const commands = [
         pingCommand.toJSON(),
         infoComite.toJSON(),
+        pollCommand.toJSON()
     ];
 
     try {
         console.log('Démarrage de l\'enregistrement des commandes slash...');
-        
-        // Enregistrer chaque commande individuellement
-        for (const command of commands) {
-            await rest.put(Routes.applicationCommands(clientId), { body: [command] });
-            console.log(`====Commande slash "${command.name}" enregistrée avec succès !====`);
-        }
-
+        await rest.put(Routes.applicationCommands(clientId), { body: commands });
         console.log('Toutes les commandes ont été enregistrées avec succès !');
     } catch (error) {
         console.error('Erreur lors de l\'enregistrement des commandes slash:', error);

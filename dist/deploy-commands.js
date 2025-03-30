@@ -17,6 +17,7 @@ const discord_js_1 = require("discord.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 const ping_1 = require("./commands/ping");
 const infos_comite_1 = require("./commands/infos-comite");
+const poll_1 = require("./commands/poll");
 dotenv_1.default.config();
 const clientId = process.env.CLIENT_ID;
 const token = process.env.TOKEN;
@@ -27,14 +28,11 @@ function registerCommands() {
         const commands = [
             ping_1.pingCommand.toJSON(),
             infos_comite_1.infoComite.toJSON(),
+            poll_1.pollCommand.toJSON()
         ];
         try {
             console.log('Démarrage de l\'enregistrement des commandes slash...');
-            // Enregistrer chaque commande individuellement
-            for (const command of commands) {
-                yield rest.put(discord_js_1.Routes.applicationCommands(clientId), { body: [command] });
-                console.log(`====Commande slash "${command.name}" enregistrée avec succès !====`);
-            }
+            yield rest.put(discord_js_1.Routes.applicationCommands(clientId), { body: commands });
             console.log('Toutes les commandes ont été enregistrées avec succès !');
         }
         catch (error) {

@@ -18,6 +18,7 @@ const deploy_commands_1 = require("./deploy-commands");
 const ping_1 = require("./commands/ping");
 const infos_comite_1 = require("./commands/infos-comite");
 const ready_1 = require("./event/ready");
+const poll_1 = require("./commands/poll");
 dotenv_1.default.config();
 const client = new discord_js_1.Client({ intents: [discord_js_1.GatewayIntentBits.Guilds] });
 const token = process.env.TOKEN;
@@ -27,10 +28,18 @@ client.once(discord_js_1.Events.ClientReady, () => {
     (0, deploy_commands_1.registerCommands)();
 });
 client.on(discord_js_1.Events.InteractionCreate, (interaction) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!interaction.isCommand())
+    if (!interaction.isChatInputCommand())
         return;
-    yield (0, ping_1.executePingCommand)(interaction);
-    yield (0, infos_comite_1.executeInfoComiteCommand)(interaction);
-    //ajoute d'autre commandes ici
+    switch (interaction.commandName) {
+        case 'ping':
+            yield (0, ping_1.executePingCommand)(interaction);
+            break;
+        case 'infos-comite':
+            yield (0, infos_comite_1.executeInfoComiteCommand)(interaction);
+            break;
+        case 'poll':
+            yield (0, poll_1.executePollCommand)(interaction);
+            break;
+    }
 }));
 client.login(token);
